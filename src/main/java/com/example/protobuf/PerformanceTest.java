@@ -3,6 +3,7 @@ package com.example.protobuf;
 import com.example.json.JPerson;
 import com.example.models.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.protobuf.Int32Value;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.io.IOException;
@@ -28,7 +29,11 @@ public class PerformanceTest {
         };
 
     // protobuf
-    Person sam = Person.newBuilder().setName("Sam").setAge(10).build();
+    Person sam =
+        Person.newBuilder()
+            .setName("Sam")
+            .setAge(Int32Value.newBuilder().setValue(25).build())
+            .build();
     // deserializing
     Runnable proto =
         () -> {

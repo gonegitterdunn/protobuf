@@ -1,39 +1,19 @@
 syntax = "proto3";
 
+import "common/address.proto";
+import "common/car.proto";
+import "google/protobuf/wrappers.proto";
+
 //in generated classes, to extract class from outer classes
 option java_multiple_files = true;
 
 // to put generated classes in a package
 option java_package = "com.example.models";
 
-message Address {
-    int32 postbox = 1;
-    string street = 2;
-    string city = 3;
-}
-
-message Car {
-    string make = 1;
-    string model = 2;
-    int32 year = 3;
-    BodyStyle body_style = 4;
-}
-
 message Person {
     string name = 1;
-    int32 age = 2;
-    Address address = 3;
-    repeated Car car = 4;
+    google.protobuf.Int32Value age = 2;
+    common.Address address = 3;
+    repeated common.Car car = 4;
 }
 
-message Dealer {
-    map<int32, Car> model = 1;
-}
-
-// 0 index is always default value in enum
-enum BodyStyle {
-    UNKNOWN = 0;
-    SEDAN = 1;
-    COUPE = 2;
-    SUV = 3;
-}

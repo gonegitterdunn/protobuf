@@ -3,6 +3,7 @@ package com.example.protobuf;
 import com.example.models.Address;
 import com.example.models.Car;
 import com.example.models.Person;
+import com.google.protobuf.Int32Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,12 @@ public class CompositionDemo {
     cars.add(civic);
     cars.add(accord);
 
-    Person person = Person.newBuilder().setName("sam").setAge(25).addAllCar(cars).build();
+    Person person =
+        Person.newBuilder()
+            .setName("sam")
+            .setAge(Int32Value.newBuilder().setValue(25).build())
+            .addAllCar(cars)
+            .build();
 
     System.out.println(person);
   }
