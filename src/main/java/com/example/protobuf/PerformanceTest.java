@@ -22,6 +22,7 @@ public class PerformanceTest {
         () -> {
           try {
             byte[] bytes = objectMapper.writeValueAsBytes(person);
+            System.out.println(bytes.length);
             JPerson jPerson1 = objectMapper.readValue(bytes, JPerson.class);
           } catch (IOException e) {
             e.printStackTrace();
@@ -39,13 +40,14 @@ public class PerformanceTest {
         () -> {
           try {
             byte[] bytes = sam.toByteArray();
+            System.out.println(bytes.length);
             Person sam1 = Person.parseFrom(bytes);
           } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
           }
         };
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 1; i++) {
       runPerformanceTest(json, "JSON");
       runPerformanceTest(proto, "proto");
     }
@@ -53,7 +55,7 @@ public class PerformanceTest {
 
   private static void runPerformanceTest(Runnable runnable, String method) {
     long time1 = System.currentTimeMillis();
-    for (int i = 0; i < 5_000_000; i++) {
+    for (int i = 0; i < 1; i++) {
       runnable.run();
     }
     long time2 = System.currentTimeMillis();

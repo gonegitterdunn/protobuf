@@ -11,7 +11,11 @@ option java_multiple_files = true;
 option java_package = "com.example.models";
 
 message Person {
-    string name = 1;
+    string name = 1; // 1 is a tag (can be any number, smaller numbers = fewer bytes.)
+    // 1-15 = 1 byte
+    // 16-2047 = 2 bytes
+    // 19000-19999 are reserved
+    // can't change once used
     google.protobuf.Int32Value age = 2;
     common.Address address = 3;
     repeated common.Car car = 4;
