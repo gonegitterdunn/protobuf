@@ -12,24 +12,62 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+
+        <!-- dependency versions -->
+        <io.grpc.version>1.47.0</io.grpc.version>
+        <apache.tomcat.version>6.0.53</apache.tomcat.version>
+        <jackson.version>2.13.3</jackson.version>
+        <junit.version>5.8.2</junit.version>
+
+        <!-- plugin dependency versions -->
+        <kr.motd.os-maven-plugin>1.6.2</kr.motd.os-maven-plugin>
+        <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
     </properties>
 
     <dependencies>
+        <!-- grpc -->
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf</artifactId>
-            <version>1.47.0</version>
+            <version>${io.grpc.version}</version>
         </dependency>
-        <dependency> <!-- necessary for Java 9+ -->
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>annotations-api</artifactId>
-            <version>6.0.53</version>
-            <scope>provided</scope>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+            <version>${io.grpc.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf</artifactId>
+            <version>${io.grpc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-stub</artifactId>
+            <version>${io.grpc.version}</version>
+        </dependency>
+
+        <!-- jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.3</version>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- apache -->
+        <dependency> <!-- necessary for Java 9+ -->
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>annotations-api</artifactId>
+            <version>${apache.tomcat.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- test -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -38,7 +76,7 @@
             <extension>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
-                <version>1.6.2</version>
+                <version>${kr.motd.os-maven-plugin}</version>
             </extension>
         </extensions>
         <plugins>
@@ -53,16 +91,16 @@
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.5.1</version>
+                <version>${protobuf-maven-plugin.version}</version>
                 <configuration>
                     <!-- allows generation of types in different languages -->
                     <!-- can also download as a cli from github.com/protocolbuffers/protobuf/releases-->
                     <protocArtifact>
-                        com.google.protobuf:protoc:3.6.1:exe:${os.detected.classifier}
+                        com.google.protobuf:protoc:3.19.2:exe:${os.detected.classifier}
                     </protocArtifact>
                     <pluginId>grpc-java</pluginId>
                     <pluginArtifact>
-                        io.grpc:protoc-gen-grpc-java:1.22.1:exe:${os.detected.classifier}
+                        io.grpc:protoc-gen-grpc-java:1.47.1:exe:${os.detected.classifier}
                     </pluginArtifact>
                     <protoSourceRoot>
                         ${basedir}/src/main/proto/

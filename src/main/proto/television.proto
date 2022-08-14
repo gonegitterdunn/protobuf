@@ -33,7 +33,7 @@ enum Type {
 //message Television {
 //    string brand = 1;
 //    reserved 2;
-//    reserved "year", "model";
+//    reserved   "year", "model";
 //    Type type = 3;
 //    int32 price = 4;
 //}
